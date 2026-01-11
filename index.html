@@ -10,8 +10,8 @@
         :root {
             --bg: #0a0e1a;
             --fg: #e8e8e8;
-            --dim: #888888;
-            --link: #a09eaaff;
+            --dim: #ffffff;
+            --link: rgb(251, 250, 255);
             --font: 'Menlo', 'Monaco', monospace;
         }
         html { font-size: 16px; height: 100%; }
@@ -19,16 +19,15 @@
             background: var(--bg);
             color: var(--fg);
             font-family: var(--font);
-            font-size: clamp(0.7rem, 1.5vw, 0.9rem);
+            font-size: clamp(0.7rem, 1.5vw, 0.85rem);
             line-height: 1.6;
             margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            padding: 2rem 2rem;
             overflow-x: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
         }
         #space-canvas {
             position: fixed;
@@ -39,44 +38,103 @@
             z-index: -1;
         }
         main {
-            width: fit-content;
-            max-width: 90%;
-            padding: 2rem;
-            text-align: left;
-            box-sizing: border-box;
+            max-width: 800px;
+            margin: 0 auto;
         }
-        h1, h2, p, ul, .nav { margin: 0; padding: 0; }
-        h1 { 
-            font-weight: bold; 
-            font-size: inherit; 
-            margin-bottom: 0.5rem; 
+        .header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(136, 136, 136, 0.2);
         }
-        .nav { 
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            margin-bottom: 2rem; 
-        }
-        p { margin-bottom: 1rem; }
-        h2 { 
-            font-weight: bold; 
-            font-size: inherit; 
-            margin-top: 2rem;
+        .name {
+            font-size: 1.8rem;
+            font-weight: bold;
             margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
         }
-        ul { list-style: none; }
-        li { margin-bottom: 0.5rem; }
-        li::before { content: "- "; color: var(--dim); }
+        .tagline {
+            color: var(--dim);
+            margin-bottom: 0.75rem;
+            line-height: 1.5;
+        }
+        .top-right-links {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            display: flex;
+            gap: 1.5rem;
+            z-index: 1000;
+        }
+        .section {
+            margin-bottom: 1.5rem;
+        }
+        .section-title {
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            color: var(--dim);
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.35rem;
+            border-bottom: 1px solid rgba(136, 136, 136, 0.15);
+        }
+        .item {
+            margin-bottom: 0.75rem;
+            padding-left: 1rem;
+            border-left: 2px solid rgba(136, 136, 136, 0.15);
+        }
+        .item:last-child {
+            margin-bottom: 0;
+        }
+        .item-title {
+            margin-bottom: 0.15rem;
+        }
+        .item-desc {
+            color: var(--dim);
+            font-size: 0.9em;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.5rem;
+        }
+        .info-item {
+            color: var(--dim);
+        }
+        .section:last-child {
+            margin-bottom: 0;
+        }
         a {
             color: var(--link);
-            text-decoration: underline;
-            position: relative;
+            text-decoration: none;
+            border-bottom: 1px solid var(--link);
+            transition: all 0.2s ease;
         }
-        a:hover { background: var(--link); color: var(--bg); text-decoration: none; }
-        .dim { color: var(--dim); }
-        .dim a { color: var(--dim); }
-        .dim a:hover { background: var(--dim); color: var(--bg); }
-        main > *:last-child { margin-bottom: 0 !important; }
+        a:hover {
+            background: var(--link);
+            color: var(--bg);
+            border-bottom-color: transparent;
+        }
+        strong {
+            font-weight: bold;
+            color: var(--fg);
+        }
+        @media (max-width: 768px) {
+            body {
+                padding: 2rem 1.5rem;
+            }
+            .name {
+                font-size: 1.4rem;
+            }
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            .top-right-links {
+                top: 1rem;
+                right: 1rem;
+                gap: 1rem;
+            }
+        }
         ::selection {
             background: var(--fg);
             color: var(--bg);
@@ -106,43 +164,80 @@
         [data-tooltip]:hover::after {
             opacity: 1;
         }
+        #toggle-particles {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            background: var(--fg);
+            color: var(--bg);
+            border: none;
+            padding: 0.5rem 1rem;
+            font-family: var(--font);
+            font-size: 0.75rem;
+            cursor: pointer;
+            z-index: 1000;
+            transition: opacity 0.2s;
+        }
+        #toggle-particles:hover {
+            opacity: 0.8;
+        }
     </style>
 </head>
 <body>
     <canvas id="space-canvas"></canvas>
-    <main>
-        <h1>keshav goel</h1>
-        <div class="nav">
-            <a href="https://www.linkedin.com/in/goel-keshav" target="_blank" rel="noopener noreferrer">linkedin</a>
-            <a href="https://github.com/keshavgoel787" target="_blank" rel="noopener noreferrer">github</a>
-            <a href="resume.pdf" target="_blank" rel="noopener noreferrer">resume</a>
-        </div>
-        <p>
-            automating manual tasks with data, ml, ai <br> 
-            <a href="https://www.khoury.northeastern.edu/" target="_blank" rel="noopener noreferrer" data-tooltip="junior, 3.9 gpa">northeastern data science, minor in math </a>
-            
-        </p>
-        <h2>experience</h2>
-        <ul>
-            <!-- <li>incoming intern @ <a href="https://www.draftkings.com/" target="_blank" rel="noopener noreferrer" data-tooltip="software engineer intern"><strong>draftkings</strong></a> (summer '26)</li> -->
-            <li>current swe intern @ <a href="https://www.procuremateai.com/" target="_blank" rel="noopener noreferrer" data-tooltip="spring '26"><strong>procuremateAI</strong></a></li>
-            <li>current data scientist @ <a href="https://generatenu.com/" target="_blank" rel="noopener noreferrer" data-tooltip="spring '26"><strong>generate</strong></a></li>
-            <li>prev swe co-op @ <a href="https://home.jnj.com/" target="_blank" rel="noopener noreferrer" data-tooltip="summer '25 - winter '25"><strong>johnson & johnson</strong></a></li>
-            <li>prev swe intern @ <a href="https://www.vdart.com/" target="_blank" rel="noopener noreferrer" data-tooltip="summer '24"><strong>vdart</strong></a></li>
+    <button id="toggle-particles">hide particles</button>
 
-        </ul>
-        <h2>projects</h2>
-        <ul>
-            <li><a href="https://github.com/Joeweh/BreatheEasy" target="_blank" rel="noopener noreferrer" data-tooltip="flutter, docker, google maps api">breathe easy</a> <span>(1st out of 400 ppl @ csbase hacks) - pollution-aware smart navigation</span></li>
-            <li><a href="https://github.com/keshavgoel787/ForgetMeNot" target="_blank" rel="noopener noreferrer" data-tooltip="snowflake, tensorflow, gemini, gcp">forgetmenot</a> <span>(2nd out of 500 ppl @ hackru) - ai memory trainer for dementia</span></li>
-        </ul>
-        <h2>info</h2>
-        <ul>
-            <li>bhangra dancer</li>
-            <li>interests: tech with impact, sleeping, elden ring, astronomy, eating good food</li>
-            <li><a href="mailto:kgoel9657@gmail.com" target="_blank" rel="noopener noreferrer">kgoel9657@gmail.com</a></li>
-            <li>nj | ny | boston</li>
-        </ul>
+    <div class="top-right-links">
+        <a href="https://www.linkedin.com/in/goel-keshav" target="_blank" rel="noopener noreferrer">linkedin</a>
+        <a href="https://github.com/keshavgoel787" target="_blank" rel="noopener noreferrer">github</a>
+    </div>
+
+    <main>
+        <div class="header">
+            <div class="name">keshav goel</div>
+            <div class="tagline">
+                <a href="https://www.khoury.northeastern.edu/" target="_blank" rel="noopener noreferrer" data-tooltip="junior, 3.9 gpa">northeastern data science, minor in math</a>
+                <br>automating manual tasks with data, ml, ai
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">experience</div>
+            <div class="item">
+                <div class="item-title">current swe intern @ <a href="https://www.procuremateai.com/" target="_blank" rel="noopener noreferrer" data-tooltip="spring '26"><strong>procuremateAI</strong></a></div>
+            </div>
+            <div class="item">
+                <div class="item-title">current data scientist @ <a href="https://generatenu.com/" target="_blank" rel="noopener noreferrer" data-tooltip="spring '26"><strong>generate</strong></a></div>
+            </div>
+            <div class="item">
+                <div class="item-title">prev swe co-op @ <a href="https://home.jnj.com/" target="_blank" rel="noopener noreferrer" data-tooltip="summer '25 - winter '25"><strong>johnson & johnson</strong></a></div>
+            </div>
+            <div class="item">
+                <div class="item-title">prev swe intern @ <a href="https://www.vdart.com/" target="_blank" rel="noopener noreferrer" data-tooltip="summer '24"><strong>vdart</strong></a></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">projects</div>
+            <div class="item">
+                <div class="item-title"><a href="https://github.com/Joeweh/BreatheEasy" target="_blank" rel="noopener noreferrer" data-tooltip="flutter, docker, google maps api">breathe easy</a></div>
+                <div class="item-desc">1st out of 400 ppl @ csbase hacks - pollution-aware smart navigation</div>
+            </div>
+            <div class="item">
+                <div class="item-title"><a href="https://github.com/keshavgoel787/ForgetMeNot" target="_blank" rel="noopener noreferrer" data-tooltip="snowflake, tensorflow, gemini, gcp">forgetmenot</a></div>
+                <div class="item-desc">2nd out of 500 ppl @ hackru - ai memory trainer for dementia</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">info</div>
+            <div class="info-grid">
+                <div class="info-item">bhangra dancer</div>
+                <div class="info-item">nj | ny | boston</div>
+                <div class="info-item"><a href="mailto:kgoel9657@gmail.com">kgoel9657@gmail.com</a></div>
+                <div class="info-item"><a href="resume.pdf" target="_blank" rel="noopener noreferrer">resume</a></div>
+            </div>
+        </div>
     </main>
     <script>
         // Three.js Galaxy Scene
@@ -252,6 +347,49 @@
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
+
+        // Particle toggle functionality
+        const toggleButton = document.getElementById('toggle-particles');
+        let particlesEnabled = localStorage.getItem('particlesEnabled') !== 'false';
+        let animationId = null;
+
+        function setParticlesState(enabled) {
+            particlesEnabled = enabled;
+            canvas.style.display = enabled ? 'block' : 'none';
+            toggleButton.textContent = enabled ? 'hide particles' : 'show particles';
+            localStorage.setItem('particlesEnabled', enabled);
+
+            if (!enabled && animationId) {
+                cancelAnimationFrame(animationId);
+                animationId = null;
+            } else if (enabled && !animationId) {
+                animate();
+            }
+        }
+
+        // Override animate to track animation frame
+        const originalAnimate = animate;
+        animate = function() {
+            animationId = requestAnimationFrame(animate);
+
+            const delta = clock.getDelta();
+
+            if (!prefersReducedMotion) {
+                points.rotation.y += delta * 0.04;
+                points.rotation.x += delta * 0.02;
+            }
+
+            material.uniforms.uPR.value = renderer.getPixelRatio();
+
+            renderer.render(scene, camera);
+        };
+
+        toggleButton.addEventListener('click', () => {
+            setParticlesState(!particlesEnabled);
+        });
+
+        // Set initial state
+        setParticlesState(particlesEnabled);
     </script>
 </body>
 </html>
